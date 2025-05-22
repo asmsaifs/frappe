@@ -406,6 +406,7 @@ class CookieManager:
 		):
 			return
 
+		cookie_domain = frappe.get_conf().get("cookie_domain")
 		self.cookies[key] = {
 			"value": value,
 			"expires": expires,
@@ -413,6 +414,7 @@ class CookieManager:
 			"httponly": httponly,
 			"samesite": samesite,
 			"max_age": max_age,
+			"domain": cookie_domain or None
 		}
 
 	def delete_cookie(self, to_delete):
@@ -431,6 +433,7 @@ class CookieManager:
 				httponly=opts.get("httponly"),
 				samesite=opts.get("samesite"),
 				max_age=opts.get("max_age"),
+				domain=opts.get("domain"),
 			)
 
 		# expires yesterday!
